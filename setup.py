@@ -13,7 +13,9 @@ requirements = [
     'Click>=6.0',
     'mechanize',
     'webhelpers',
-    'bs4'
+    'bs4',
+    'jinja2',
+    'premailer'
     # TODO: put package requirements here
 ]
 
