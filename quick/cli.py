@@ -3,7 +3,11 @@
 import os
 
 import click
+from premailer import transform
+from bs4 import BeautifulSoup
+
 from utils import *
+
 
 @click.group()
 def main():
@@ -43,6 +47,20 @@ def start(project):
         'index.html',
         'package.json'
     ])
+
+
+@main.command()
+def process():
+    root_dir = find_root()
+    if not root_dir:
+        click.echo(click.style("You are not in a quick project directory!", fg='red'))
+
+    f = open(os.path.join(root_dir, 'index.html'))
+    html = transform(f.read())
+
+    print replace_cols(replace_rows(replace_containers(html)))
+
+
 
 if __name__ == "__main__":
     main()
