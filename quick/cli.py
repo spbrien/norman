@@ -55,10 +55,13 @@ def process():
     if not root_dir:
         click.echo(click.style("You are not in a quick project directory!", fg='red'))
 
-    f = open(os.path.join(root_dir, 'index.html'))
-    html = transform(f.read())
+    filename = os.path.join(root_dir, 'index.html')
+    with open(filename, 'r') as f:
+        html = transform(f.read())
+        out = replace_cols(replace_rows(replace_containers(html)))
 
-    print replace_cols(replace_rows(replace_containers(html)))
+    with open(filename, 'w') as f:
+        f.write(out)
 
 
 
