@@ -53,6 +53,9 @@ def replace_containers(html):
     for container in wrappers:
         table = soup.new_tag('table')
         table.attrs = container.attrs
+        table['border'] = 0
+        table['cellpadding'] = 0
+        table['cellspacing'] = 0
 
         td = soup.new_tag('td')
         td.contents = container.contents
@@ -71,6 +74,9 @@ def replace_rows(html):
     for container in rows:
         table = soup.new_tag('table')
         table.attrs = container.attrs
+        table['border'] = 0
+        table['cellpadding'] = 0
+        table['cellspacing'] = 0
 
         tr = soup.new_tag('tr')
         tr.contents = container.contents
