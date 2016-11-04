@@ -6,7 +6,7 @@ import click
 from premailer import transform
 from bs4 import BeautifulSoup
 
-from norman import Mailer
+from sender import Mailer
 from utils import *
 
 
