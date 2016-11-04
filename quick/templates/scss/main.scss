@@ -1,6 +1,14 @@
 @import 'base';
 
-// Use margin-bottom or margin-top for consistent paragraph spacing
-// Set .container width to overall width
-// Give every col an explicit width
-// Column widths MUST add up to .container width
+// ----------------------------------------------------------------------------
+// 1. Use margin-bottom or margin-top for consistent spacing on p, img, h1
+// 2. Do not use padding anywhere
+// 3. Use px values for everything type related
+// 4. Set .container width to overall email width in px
+// 5. Give every col an explicit width in px
+// 6. Columns in the same row MUST have widths that  add up to .container width
+// 7. Use .row to specify a row and .column to specify columns within rows
+// 8. .columns are set to float and .rows clear their children
+// ----------------------------------------------------------------------------
+
+// Them's the rules
