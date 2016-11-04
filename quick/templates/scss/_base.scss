@@ -34,7 +34,22 @@ img {
     width: 100%
 }
 
+.row:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.row { display: inline-block; }
+/* start commented backslash hack \*/
+* html .row { height: 1%; }
+.row { display: block; }
+/* close commented backslash hack */
+
 .column {
    // Becomes <td></td>
+   float: left;
 }
 {% endraw %}
