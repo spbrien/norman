@@ -86,6 +86,7 @@ def test(domain, api_key, recipients):
         click.echo(click.style("\n[!] You must set the CLOUDINARY_URL environment variable to use this script.", fg='red'))
         click.abort()
 
+    root_dir = find_root()
     filename = os.path.join(root_dir, 'index.html')
     f = open(filename, 'r')
     html = f.read()
