@@ -3,7 +3,7 @@
 
 from setuptools import setup
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
@@ -15,7 +15,7 @@ requirements = [
     'webhelpers',
     'bs4',
     'jinja2',
-    'premailer'
+    'premailer',
     'cloudinary',
     'requests',
     # TODO: put package requirements here
@@ -26,28 +26,28 @@ test_requirements = [
 ]
 
 setup(
-    name='quick',
+    name='norman',
     version='0.1.0',
-    description="Quickly format emails",
+    description="Quickly create html emails",
     long_description=readme + '\n\n' + history,
     author="Steven Brien",
     author_email='sbrien@hlkagency.com',
-    url='https://github.com/spbrien/quick',
+    url='https://github.com/spbrien/norman',
     packages=[
-        'quick',
+        'norman',
     ],
-    package_dir={'quick':
-                 'quick'},
+    package_dir={'norman':
+                 'norman'},
     entry_points={
         'console_scripts': [
-            'quick=quick.cli:main'
+            'norman=norman.cli:main'
         ]
     },
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
-    keywords='quick',
+    keywords='norman',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

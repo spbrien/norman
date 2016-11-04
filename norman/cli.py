@@ -86,7 +86,7 @@ def process():
 )
 def test(domain, api_key, recipients):
     """
-    Sends a test of your email.
+    Send a test of your email.
     """
     if not os.environ.get('CLOUDINARY_URL'):
         click.echo(click.style("\n[!] You must set the CLOUDINARY_URL environment variable to use this script.", fg='red'))

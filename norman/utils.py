@@ -8,7 +8,7 @@ from jinja2 import Environment, PackageLoader
 
 
 # Set up vars
-env = Environment(loader=PackageLoader('quick', 'templates'))
+env = Environment(loader=PackageLoader('norman', 'templates'))
 
 
 # Utility Functions

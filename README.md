@@ -1,4 +1,4 @@
-# Quick
+# Norman
 
 Quickly code emails
 
@@ -20,4 +20,5 @@ Edit `index.html` and `scss/main.scss`.
 From anywhere inside your project directory:
 
     quick process
+    quick test your@email.com
 
