@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -33,9 +33,7 @@ setup(
     author="Steven Brien",
     author_email='sbrien@hlkagency.com',
     url='https://github.com/spbrien/norman',
-    packages=[
-        'norman',
-    ],
+    packages=find_packages(),
     package_dir={'norman':
                  'norman'},
     entry_points={
@@ -44,6 +42,9 @@ setup(
         ]
     },
     include_package_data=True,
+    package_data={
+        '': ['*.*', '**/*.*'],
+    },
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
