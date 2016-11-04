@@ -64,6 +64,39 @@ def process():
         f.write(out)
 
 
+@main.command()
+@click.argument('recipients', nargs=-1)
+@click.option(
+    '--domain',
+    prompt=True,
+    default=lambda: os.environ.get('MAILGUN_DOMAIN'),
+    help='Mailgun Domain'
+)
+@click.option(
+    '--api_key',
+    prompt=True,
+    default=lambda: os.environ.get('MAILGUN_API_KEY'),
+    help='Mailgun API Key'
+)
+def main(domain, api_key, recipients):
+    """
+    A tool to send HTML email tests from the command line.
+    """
+    if not os.environ.get('CLOUDINARY_URL'):
+        click.echo(click.style("\n[!] You must set the CLOUDINARY_URL environment variable to use this script.", fg='red'))
+        click.abort()
+
+    filename = os.path.join(root_dir, 'index.html')
+    f = open(filename, 'r')
+    html = f.read()
+
+    mailer = Mailer(domain, api_key)
+    click.echo(click.style("\n[+] Uploading images...", fg='white'))
+    hosted = mailer.host_images(html)
+    click.echo(click.style("[+] Sending test email...", fg='white'))
+    mailer.send_email(hosted, recipients)
+
+    click.echo(click.style("[!] Finished", fg='white'))
 
 if __name__ == "__main__":
     main()

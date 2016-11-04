@@ -16,6 +16,8 @@ requirements = [
     'bs4',
     'jinja2',
     'premailer'
+    'cloudinary',
+    'requests',
     # TODO: put package requirements here
 ]
 
