@@ -6,6 +6,7 @@ import click
 from premailer import transform
 from bs4 import BeautifulSoup
 
+from norman import Mailer
 from utils import *
 
 
@@ -87,7 +88,7 @@ def test(domain, api_key, recipients):
         click.abort()
 
     root_dir = find_root()
-    filename = os.path.join(root_dir, 'index.html')
+    filename = os.path.join(root_dir, 'out.html')
     f = open(filename, 'r')
     html = f.read()
 
