@@ -58,9 +58,9 @@ def process():
     filename = os.path.join(root_dir, 'index.html')
     with open(filename, 'r') as f:
         html = transform(f.read())
-        out = replace_cols(replace_rows(replace_containers(html)))
+        out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
 
-    with open(filename, 'w') as f:
+    with open('out.html', 'w') as f:
         f.write(out)
 
 
