@@ -78,7 +78,7 @@ def process():
     default=lambda: os.environ.get('MAILGUN_API_KEY'),
     help='Mailgun API Key'
 )
-def main(domain, api_key, recipients):
+def test(domain, api_key, recipients):
     """
     A tool to send HTML email tests from the command line.
     """
