@@ -18,6 +18,7 @@ def main():
 @main.command()
 @click.argument('project')
 def start(project):
+    """Start a new project."""
     # Set up vars
     project_dir = os.path.join(os.getcwd(), project)
     scss_dir = os.path.join(project_dir, 'scss')
@@ -52,6 +53,10 @@ def start(project):
 
 @main.command()
 def process():
+    """
+    Transpile your code into email-ready html.
+    A file called out.html will be created in your project root.
+    """
     root_dir = find_root()
     if not root_dir:
         click.echo(click.style("You are not in a quick project directory!", fg='red'))
@@ -81,7 +86,7 @@ def process():
 )
 def test(domain, api_key, recipients):
     """
-    A tool to send HTML email tests from the command line.
+    Sends a test of your email.
     """
     if not os.environ.get('CLOUDINARY_URL'):
         click.echo(click.style("\n[!] You must set the CLOUDINARY_URL environment variable to use this script.", fg='red'))
