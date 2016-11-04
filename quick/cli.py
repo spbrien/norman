@@ -88,6 +88,15 @@ def test(domain, api_key, recipients):
         click.abort()
 
     root_dir = find_root()
+
+    ind = os.path.join(root_dir, 'index.html')
+    with open(ind, 'r') as f:
+        html = transform(f.read())
+        out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
+
+    with open('out.html', 'w') as f:
+        f.write(out)
+
     filename = os.path.join(root_dir, 'out.html')
     f = open(filename, 'r')
     html = f.read()
