@@ -8,7 +8,7 @@ Quickly code emails
 
 Set up a project:
 
-    quick start my-project
+    norman start my-project
     cd ./my-project
 
 Run `npm install`
@@ -19,6 +19,6 @@ Edit `index.html` and `scss/main.scss`.
 
 From anywhere inside your project directory:
 
-    quick process
-    quick test your@email.com
+    norman process
+    norman test your@email.com
 
