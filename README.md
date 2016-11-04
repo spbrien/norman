@@ -6,9 +6,7 @@ Quickly code emails
 
 ## Installation
 
-    git clone https://github.com/spbrien/norman.git
-    cd ./norman
-    pip install -e ./
+    pip install git+https://github.com/spbrien/norman.git
 
 ## Usage
 
