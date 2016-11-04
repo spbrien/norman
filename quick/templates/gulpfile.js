@@ -15,6 +15,8 @@ gulp.task('css', function () {
     .pipe(gulp.dest('css'))
 });
 
-gulp.task('default', ['css'], function () {
-    gulp.watch("scss/*/*.scss", ['css']);
+gulp.task('watch', function() {
+  gulp.watch('./scss/**/*.scss', ['css']);
 });
+
+gulp.task('default', ['watch']);
