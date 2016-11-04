@@ -4,6 +4,10 @@ Quickly code emails
 
 * Free software: MIT license
 
+## Installation
+
+`pip install git+https://github.com/spbrien/norman.git`
+
 ## Usage
 
 Set up a project:
