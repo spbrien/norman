@@ -67,7 +67,7 @@ def process():
     with open(filename, 'r') as f:
         html = transform(f.read())
         css = open(css_filename, 'r').read()
-        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '')
+        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
 
     with open('out.html', 'w') as f:
         f.write(out.encode('utf8'))
@@ -104,7 +104,7 @@ def test(domain, api_key, recipients):
     with open(ind, 'r') as f:
         html = transform(f.read())
         css = open(css_filename, 'r').read()
-        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '')
+        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
 
     with open('out.html', 'w') as f:
         f.write(out.encode('utf8'))
