@@ -61,13 +61,17 @@ def process():
     if not root_dir:
         click.echo(click.style("You are not in a quick project directory!", fg='red'))
 
+    # ---------------------------------------------------
     filename = os.path.join(root_dir, 'index.html')
+    css_filename = os.path.join(root_dir, 'css/main.min.css')
     with open(filename, 'r') as f:
         html = transform(f.read())
-        out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
+        css = open(css_filename, 'r').read()
+        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '')
 
     with open('out.html', 'w') as f:
         f.write(out.encode('utf8'))
+    # ---------------------------------------------------
 
 
 @main.command()
@@ -94,14 +98,19 @@ def test(domain, api_key, recipients):
 
     root_dir = find_root()
 
+    # ---------------------------------------------------
     ind = os.path.join(root_dir, 'index.html')
+    css_filename = os.path.join(root_dir, 'css/main.min.css')
     with open(ind, 'r') as f:
         html = transform(f.read())
-        out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
+        css = open(css_filename, 'r').read()
+        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '')
 
     with open('out.html', 'w') as f:
         f.write(out.encode('utf8'))
+    # ---------------------------------------------------
 
+    # ---------------------------------------------------
     filename = os.path.join(root_dir, 'out.html')
     f = open(filename, 'r')
     html = f.read()
@@ -111,6 +120,7 @@ def test(domain, api_key, recipients):
     hosted = mailer.host_images(html)
     click.echo(click.style("[+] Sending test email...", fg='white'))
     mailer.send_email(hosted, recipients)
+    # ---------------------------------------------------
 
     click.echo(click.style("[!] Finished", fg='white'))
 

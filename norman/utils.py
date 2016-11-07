@@ -47,6 +47,13 @@ def find_root():
     return None
 
 
+def create_style_tag(html, css):
+    soup = BeautifulSoup(html, 'lxml')
+    style = soup.find('style')
+    style.string.replace_with(css)
+    return soup.prettify()
+
+
 def replace_containers(html):
     soup = BeautifulSoup(html, 'lxml')
     wrappers = soup.find_all("div", {"class": "container"})
