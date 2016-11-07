@@ -6,6 +6,7 @@ import base64
 import requests
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
+from cloudinary.api import delete_resources_by_tag, resources_by_tag
 from bs4 import BeautifulSoup
 
 
@@ -16,10 +17,16 @@ class Mailer():
         self.api_key = api_key
 
     def host_images(self, html):
+        # Clean old images
+        response = resources_by_tag("email_test")
+        count = len(response.get('resources', []))
+        if (count > 0):
+            delete_resources_by_tag('email_test')
+
         soup = BeautifulSoup(html, 'html.parser')
         imgs = soup.find_all('img')
         for img in imgs:
-            resp = upload(img['src'])
+            resp = upload(img['src'], tags="email_test")
             url, options = cloudinary_url(resp['public_id'], format=resp['format'])
             img['src'] = url
 
