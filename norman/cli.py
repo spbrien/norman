@@ -67,7 +67,7 @@ def process():
         out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
 
     with open('out.html', 'w') as f:
-        f.write(out)
+        f.write(out.encode('utf8'))
 
 
 @main.command()
@@ -100,7 +100,7 @@ def test(domain, api_key, recipients):
         out = replace_cols(replace_rows(replace_containers(html))).replace('float:left;', '')
 
     with open('out.html', 'w') as f:
-        f.write(out)
+        f.write(out.encode('utf8'))
 
     filename = os.path.join(root_dir, 'out.html')
     f = open(filename, 'r')
