@@ -128,6 +128,8 @@ def package():
     dist_dir_name = os.path.join(root_dir, 'dist')
     if not os.path.exists(dist_dir_name):
         os.makedirs(dist_dir_name)
+    else:
+        shutil.rmtree(dist_dir_name)
 
     shutil.copytree(
         os.path.join(root_dir, 'images'),
