@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import shutil
 
 import click
 from premailer import transform
@@ -52,29 +53,6 @@ def start(project):
 
 
 @main.command()
-def process():
-    """
-    Transpile your code into email-ready html.
-    A file called out.html will be created in your project root.
-    """
-    root_dir = find_root()
-    if not root_dir:
-        click.echo(click.style("You are not in a quick project directory!", fg='red'))
-
-    # ---------------------------------------------------
-    filename = os.path.join(root_dir, 'index.html')
-    css_filename = os.path.join(root_dir, 'css/main.min.css')
-    with open(filename, 'r') as f:
-        html = transform(f.read())
-        css = open(css_filename, 'r').read()
-        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
-
-    with open('out.html', 'w') as f:
-        f.write(out.encode('utf8'))
-    # ---------------------------------------------------
-
-
-@main.command()
 @click.argument('recipients', nargs=-1)
 @click.option(
     '--domain',
@@ -123,6 +101,45 @@ def test(domain, api_key, recipients):
     # ---------------------------------------------------
 
     click.echo(click.style("[!] Finished", fg='white'))
+
+
+@main.command()
+def package():
+    """
+    Transpile your code into email-ready html.
+    A directory called dist will be created in your project root.
+    """
+    root_dir = find_root()
+    if not root_dir:
+        click.echo(click.style("You are not in a quick project directory!", fg='red'))
+
+    # ---------------------------------------------------
+    filename = os.path.join(root_dir, 'index.html')
+    css_filename = os.path.join(root_dir, 'css/main.min.css')
+    with open(filename, 'r') as f:
+        html = transform(f.read())
+        css = open(css_filename, 'r').read()
+        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
+
+    with open('out.html', 'w') as f:
+        f.write(out.encode('utf8'))
+    # ---------------------------------------------------
+
+    dist_dir_name = os.path.join(root_dir, 'dist')
+    if not os.path.exists(dist_dir_name):
+        os.makedirs(dist_dir_name)
+
+    shutil.copytree(
+        os.path.join(root_dir, 'images'),
+        os.path.join(dist_dir_name, 'images')
+    )
+
+    shutil.copy(
+        os.path.join(root_dir, 'out.html'),
+        os.path.join(dist_dir_name, 'index.html')
+    )
+
+    os.remove(os.path.join(root_dir, 'out.html'))
 
 if __name__ == "__main__":
     main()
