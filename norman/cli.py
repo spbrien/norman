@@ -173,7 +173,11 @@ def package(filename):
         os.path.join(package, 'dist')
     )
 
+    shutil.rmtree(partials)
+    shutil.rmtree(dist_dir_name)
 
+    archive = "%s.zip" % filename.split('.')[0]
+    shutil.make_archive(os.path.join(root_dir, archive), 'zip', package)
 
 
 if __name__ == "__main__":
