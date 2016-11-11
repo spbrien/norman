@@ -11,11 +11,12 @@ body {
     width: 100%;
     font-family: Arial, sans-serif;
     -webkit-text-size-adjust: none;
+    background: $background-color;
 }
 
 p {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: $paragraph-top;
+    margin-bottom: $paragraph-bottom;
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -27,7 +28,7 @@ img {
 }
 
 .container {
-    width: 600px;
+    width: $full-width;
     margin: 0 auto;
 }
 
@@ -54,4 +55,83 @@ img {
    // Becomes <td></td>
    float: left;
 }
+
+img.full {
+    width: $full-width !important;
+}
+
+img.content {
+    width: $content-width !important;
+}
+
+.offset {
+    width: $offset-width;
+}
+
+.main {
+    width: $content-width;
+}
+
+.content {
+    background: $content-background-color;
+}
+
+p, ul li {
+    font-family: $body-font-family;
+    font-size: $base-font-size;
+    font-weight: normal;
+    line-height: $base-line-height;
+    color: $text-color;
+
+    &.small {
+        font-size: $small-font-size;
+        line-height: $small-line-height;
+    }
+}
+
+h1, h2, h3 {
+    font-family: $heading-font-family;
+    color: $alpha-color;
+}
+
+h1 {
+    font-size: $h1-size;
+}
+
+h2 {
+    font-size: $h2-size;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: $beta-color;
+}
+
+.button-contain {
+    width: 100%;
+}
+
+.button {
+    &.secondary {
+        background: $beta-color;
+    }
+    a {
+        color: #fff;
+    }
+    width: $button-width;
+    background: $button-bg-color;
+    color: $button-color;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.button-spacing-left {
+    width: $button-spacing-left;
+}
+
+.button-spacing-right {
+    width: $button-spacing-right;
+}
+
 {% endraw %}
