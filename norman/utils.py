@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import os
+import shutil
 import subprocess
 import re
+import string
 
 from bs4 import BeautifulSoup
 from jinja2 import Environment, PackageLoader
@@ -115,16 +117,30 @@ def strip_template_tags(html):
     tag_match = re.compile(r"(<custom[\s\S]*?</custom>)")
     tags = tag_match.findall(html)
     for tag in tags:
-        tag_contents = re.match(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag).group(0)
+        tag_contents = re.findall(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag)[0]
         html = html.replace(tag, tag_contents)
     return html
 
 def strip_template_tags_content(html):
+    # Make dirs for partials
+    root_dir = find_root()
+    partials_dir = os.path.join(root_dir, 'partials')
+    if not os.path.exists(partials_dir):
+        os.makedirs(partials_dir)
+    else:
+        shutil.rmtree(partials_dir)
+        os.makedirs(partials_dir)
+
+    # Process
     tag_match = re.compile(r"(<custom[\s\S]*?</custom>)")
     tags = tag_match.findall(html)
     for tag in tags:
-        print tag
-        tag_contents = re.findall(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag)
+        tag_contents = re.findall(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag)[0]
+        open_tag = re.findall(r"(?<=<custom).*?(?=>)", tag)[0]
+        name = re.findall(r"(?<=name=(?:\"|\')).*?(?=(?:\"|\'))", open_tag)[0]
+        fname = os.path.join(partials_dir, "%s.html" % name.lower().replace(" ", "-"))
+        with open(fname, 'w') as f:
+            f.write(tag_contents.encode('ascii', 'xmlcharrefreplace'))
         replacement = tag.replace(tag_contents[0], '')
         html = html.replace(tag, replacement)
     return html

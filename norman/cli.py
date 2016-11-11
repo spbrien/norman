@@ -89,7 +89,7 @@ def test(filename, domain, api_key, recipients):
         css = open(css_filename, 'r').read()
         out = apply_test_transformations(create_style_tag(html, css))
 
-    out_filename = os.path.join(root, "%s-out.html" % filename)
+    out_filename = os.path.join(root_dir, "out-%s" % filename)
     with open(out_filename, 'w') as f:
         f.write(out.decode('utf8').encode('ascii', 'xmlcharrefreplace'))
     # ---------------------------------------------------
@@ -105,6 +105,7 @@ def test(filename, domain, api_key, recipients):
     mailer.send_email(hosted, recipients)
     # ---------------------------------------------------
 
+    os.remove(out_filename)
     click.echo(click.style("[!] Finished", fg='white'))
 
 
