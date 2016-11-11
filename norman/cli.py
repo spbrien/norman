@@ -42,6 +42,7 @@ def start(project):
     create = template_factory(data, project_dir)
     map(create, [
         'scss/_base.scss',
+        'scss/_vars.scss',
         'scss/main.scss',
         '.editorconfig',
         '.gitignore',
