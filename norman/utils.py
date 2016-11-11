@@ -141,7 +141,7 @@ def strip_template_tags_content(html):
         fname = os.path.join(partials_dir, "%s.html" % name.lower().replace(" ", "-"))
         with open(fname, 'w') as f:
             f.write(tag_contents.encode('ascii', 'xmlcharrefreplace'))
-        replacement = tag.replace(tag_contents[0], '')
+        replacement = tag.replace(tag_contents, '')
         html = html.replace(tag, replacement)
     return html
 

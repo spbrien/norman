@@ -141,6 +141,7 @@ def package(filename):
         os.makedirs(dist_dir_name)
     else:
         shutil.rmtree(dist_dir_name)
+        os.makedirs(dist_dir_name)
 
     shutil.copytree(
         os.path.join(root_dir, 'images'),
@@ -153,6 +154,27 @@ def package(filename):
     )
 
     os.remove(os.path.join(root_dir, 'out.html'))
+
+    package = os.path.join(root_dir, 'package')
+    partials = os.path.join(root_dir, 'partials')
+    if not os.path.exists(package):
+        os.makedirs(package)
+    else:
+        shutil.rmtree(package)
+        os.makedirs(package)
+
+    shutil.copytree(
+        partials,
+        os.path.join(package, 'partials')
+    )
+
+    shutil.copytree(
+        dist_dir_name,
+        os.path.join(package, 'dist')
+    )
+
+
+
 
 if __name__ == "__main__":
     main()
