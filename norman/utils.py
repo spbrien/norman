@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import re
 
 from bs4 import BeautifulSoup
 from jinja2 import Environment, PackageLoader
@@ -104,3 +105,47 @@ def replace_cols(html):
         item.replace_with(td)
 
     return soup.prettify()
+
+
+def strip_floats(html):
+    return html.replace('float:left;', '').replace('float:left', '')
+
+
+def strip_template_tags(html):
+    tag_match = re.compile(r"(<custom[\s\S]*?</custom>)")
+    tags = tag_match.findall(html)
+    for tag in tags:
+        tag_contents = re.match(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag).group(0)
+        html = html.replace(tag, tag_contents)
+    return html
+
+def strip_template_tags_content(html):
+    tag_match = re.compile(r"(<custom[\s\S]*?</custom>)")
+    tags = tag_match.findall(html)
+    for tag in tags:
+        print tag
+        tag_contents = re.findall(r"(?<=\>)[\s\S]*(?=\<\/custom\>)", tag)
+        replacement = tag.replace(tag_contents[0], '')
+        html = html.replace(tag, replacement)
+    return html
+
+
+def apply_test_transformations(html):
+    transformations = [
+        replace_containers,
+        replace_rows,
+        replace_cols,
+        strip_floats,
+        strip_template_tags
+    ]
+    return reduce(lambda x, y: y(x), transformations, html).encode('utf8')
+
+def apply_package_transformations(html):
+    transformations = [
+        replace_containers,
+        replace_rows,
+        replace_cols,
+        strip_floats,
+        strip_template_tags_content
+    ]
+    return reduce(lambda x, y: y(x), transformations, html).encode('utf8')

@@ -66,7 +66,12 @@ def start(project):
     default=lambda: os.environ.get('MAILGUN_API_KEY'),
     help='Mailgun API Key'
 )
-def test(domain, api_key, recipients):
+@click.option(
+    '--filename',
+    default='index.html',
+    help='Filename'
+)
+def test(filename, domain, api_key, recipients):
     """
     Send a test of your email.
     """
@@ -77,20 +82,20 @@ def test(domain, api_key, recipients):
     root_dir = find_root()
 
     # ---------------------------------------------------
-    ind = os.path.join(root_dir, 'index.html')
+    ind = os.path.join(root_dir, filename)
     css_filename = os.path.join(root_dir, 'css/main.min.css')
     with open(ind, 'r') as f:
         html = transform(f.read())
         css = open(css_filename, 'r').read()
-        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
+        out = apply_test_transformations(create_style_tag(html, css))
 
-    with open('out.html', 'w') as f:
-        f.write(out.encode('utf8'))
+    out_filename = os.path.join(root, "%s-out.html" % filename)
+    with open(out_filename, 'w') as f:
+        f.write(out.decode('utf8').encode('ascii', 'xmlcharrefreplace'))
     # ---------------------------------------------------
 
     # ---------------------------------------------------
-    filename = os.path.join(root_dir, 'out.html')
-    f = open(filename, 'r')
+    f = open(out_filename, 'r')
     html = f.read()
 
     mailer = Mailer(domain, api_key)
@@ -104,25 +109,30 @@ def test(domain, api_key, recipients):
 
 
 @main.command()
-def package():
+@click.option(
+    '--filename',
+    default='index.html',
+    help='Filename'
+)
+def package(filename):
     """
     Transpile your code into email-ready html.
     A directory called dist will be created in your project root.
     """
     root_dir = find_root()
     if not root_dir:
-        click.echo(click.style("You are not in a quick project directory!", fg='red'))
+        click.echo(click.style("You are not in a Norman project directory!", fg='red'))
 
     # ---------------------------------------------------
-    filename = os.path.join(root_dir, 'index.html')
+    fname = os.path.join(root_dir, filename)
     css_filename = os.path.join(root_dir, 'css/main.min.css')
-    with open(filename, 'r') as f:
+    with open(fname, 'r') as f:
         html = transform(f.read())
         css = open(css_filename, 'r').read()
-        out = replace_cols(replace_rows(replace_containers(create_style_tag(html, css)))).replace('float:left;', '').replace('float:left', '')
+        out = apply_package_transformations(create_style_tag(html, css))
 
     with open('out.html', 'w') as f:
-        f.write(out.encode('utf8'))
+        f.write(out.decode('utf8').encode('ascii', 'xmlcharrefreplace'))
     # ---------------------------------------------------
 
     dist_dir_name = os.path.join(root_dir, 'dist')
