@@ -26,3 +26,8 @@ From anywhere inside your project directory:
     norman test your@email.com
     norman package
 
+## Features
+
+This tool scaffolds out boilerplate code and provides a framework for coding HTML emails using modern markup and styles (with a few caveats), then transforms the code into table-based layouts that work across mail clients and devices.
+
+
