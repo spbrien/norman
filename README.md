@@ -23,6 +23,6 @@ Edit `index.html` and `scss/main.scss`.
 
 From anywhere inside your project directory:
 
-    norman process
     norman test your@email.com
+    norman package
 
