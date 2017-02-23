@@ -1,4 +1,4 @@
-@import 'base';
+{% raw %}@import 'base';
 
 // ----------------------------------------------------------------------------
 // 1. Use margin-bottom or margin-top for consistent spacing on p, img, h1
@@ -12,3 +12,30 @@
 // ----------------------------------------------------------------------------
 
 // Them's the rules
+
+
+
+
+
+// Responsive
+// ----------------------------------------------------------------------------
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+}
+{% endraw %}

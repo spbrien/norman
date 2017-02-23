@@ -5,13 +5,46 @@
 // Many of these are necessary for the Quick tool to transpile into working
 // HTML email code. They must be used in your html.
 
+body, table, td, a {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+table, td {
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+}
+
+table {
+  border-collapse: collapse !important;border-collapse: collapse !important;
+}
+
+a[x-apple-data-detectors] {
+  color: inherit !important;
+  text-decoration: none !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+}
+
 body {
     margin: 0;
     padding: 0;
     width: 100%;
     font-family: Arial, sans-serif;
-    -webkit-text-size-adjust: none;
     background: $background-color;
+}
+
+img {
+    -ms-interpolation-mode:bicubic;
+    height: auto;
+    width: 100%;
+    display: block;
+    border: 0;
+    line-height: 100%;
+    outline: none;
+    text-decoration: none;
 }
 
 p {
@@ -19,12 +52,6 @@ p {
     margin-bottom: $paragraph-bottom;
     padding-top: 0;
     padding-bottom: 0;
-}
-
-img {
-    width: 100%;
-    display: block;
-    border: 0;
 }
 
 .container {
